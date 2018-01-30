@@ -16,6 +16,16 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => { // io.on lets you register an event listner
   console.log('New user connected');
 
+  socket.emit('newMessage', {
+    from: 'John',
+    text: 'Hey. How are you!',
+    createAt: 123123
+  });
+
+  socket.on('createMessage', (message) => {
+    console.log('createMessage', message);
+  });
+
   socket.on('disconnect', () => {
     console.log('User was disconnected');
   });
